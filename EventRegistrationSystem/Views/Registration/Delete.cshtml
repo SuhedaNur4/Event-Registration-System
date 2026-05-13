@@ -1,0 +1,27 @@
+@model EventRegistrationSystem.Models.Registration
+@{
+    ViewData["Title"] = "Kayıt Sil";
+}
+
+<h1>Kayıt Sil</h1>
+
+<h3>Bu kaydı silmek istediğinize emin misiniz?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Event)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Event.EventName)</dd>
+        
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Participant)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Participant.FullName)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.RegistrationDate)</dt>
+        <dd class="col-sm-9">@Model.RegistrationDate.ToString("f")</dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Sil" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+    </form>
+</div>

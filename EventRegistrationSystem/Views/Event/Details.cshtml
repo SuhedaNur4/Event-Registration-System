@@ -1,0 +1,63 @@
+@model EventRegistrationSystem.Models.Event
+@{
+    ViewData["Title"] = "Etkinlik Detayları";
+}
+
+<h1>Etkinlik Detayları</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.EventName)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.EventName)</dd>
+        
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Location)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Location)</dd>
+        
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.EventDate)</dt>
+        <dd class="col-sm-9">@Model.EventDate.ToString("f")</dd>
+        
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Capacity)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Capacity)</dd>
+
+        <dt class="col-sm-3">Kayıtlı Kişi Sayısı</dt>
+        <dd class="col-sm-9">@Model.Registrations.Count() / @Model.Capacity</dd>
+    </dl>
+</div>
+
+<div class="mt-4">
+    <h3>Kayıtlı Katılımcılar</h3>
+    @if (Model.Registrations.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Ad Soyad</th>
+                    <th>E-posta</th>
+                    <th>Bölüm</th>
+                    <th>Kayıt Tarihi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var reg in Model.Registrations)
+                {
+                    <tr>
+                        <td>@reg.Participant.FullName</td>
+                        <td>@reg.Participant.Email</td>
+                        <td>@reg.Participant.Department</td>
+                        <td>@reg.RegistrationDate.ToString("g")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">Henüz bu etkinliğe kayıt olan kimse yok.</div>
+    }
+</div>
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Düzenle</a>
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+</div>
